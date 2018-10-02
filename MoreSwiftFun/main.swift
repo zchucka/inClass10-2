@@ -118,7 +118,45 @@ executeVoidFunctions(f: { () -> Void in
     print("Goodbye")
 })
 
+// swift has a lot of "syntatic sugar" "shorthand" for closures
+executeVoidFunctions {
+    print("Good day")
+}
+// more on this later
 
+// another example!
+// a function that accepts and calls a function of type (Int) -> Int
+func transformRandomInteger(f: (Int) -> (Int)) {
+    let randNum = Int.random(in: 1...10)
+    let transRandNum = f(randNum)
+    print(randNum, transRandNum)
+}
 
-
+// lets call transform random integer passing in a closure that doubles the number
+transformRandomInteger(f: { (value) -> Int in
+    return value * 2
+})
  
+
+// task: call transformRandomInteger passing in a closure that squares a number
+transformRandomInteger() {$0 * $0}
+
+// more on shorthand
+// if the closure only has one line, you can omit the return word, swift will return whatever that one line evals to
+// swift can infer type for the return value
+// we can omit the parameter list and use general placeholders instead
+// $0 can be used to refer to the first parameter
+// $1 for the second...
+// trailing closure: a closure that is the last argument to a function call
+// a trailing closure can be outside of the ()
+// if the closure is the only arg, you don't need the ()
+
+// closures are everywhere
+// ADS 5.1 closures with collection types (arrays)
+// map, reduce, filter are often written using closures
+// some examples in iOS
+// alertcontrollers use closures to execute code later
+// like when the user clicks on an action
+// timers use closures to execute code periodically
+
+
